@@ -1,6 +1,6 @@
 //
 //  HomepageComponent.swift
-//  Ilim College
+//  School App
 //
 //  Created by Bashir Rahmah on 18/7/2022.
 //  Copyright © 2022 Bashir Rahmah. All rights reserved.

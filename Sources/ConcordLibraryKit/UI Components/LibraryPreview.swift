@@ -10,17 +10,29 @@ import URLImage
 
 public struct LibraryPreview: View {
     @State var books = [Library_Book(title: "", imageLink: "", meta: "", stock: "", resultId: "", isStatusSuccess: false)]
+    let headerColor: Color?
     
+    public init(headerColor: Color) {
+        self.headerColor = headerColor
+    }
     public init() {
-        
+        self.headerColor = nil
     }
     
     public var body: some View {
         VStack {
             HStack {
-                Text("Ilim Library")
-                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                if headerColor == nil {
+                    Text("Ilim Library")
+                        .font(.system(size: 16, weight: .semibold, design: .rounded))
+                        .padding(.horizontal)
+                } else {
+                    Text("Ilim Library")
+                    .font(.custom("Feijoa-Display", size: 16))
+                    .foregroundColor(headerColor)
+                    .padding(.bottom, -2)
                     .padding(.horizontal)
+                }
                 NavigationLink {
                     BooksView(searchText: Library_APIManager.getRandomSearchQuery())
                 } label: {
@@ -72,7 +84,9 @@ public struct LibraryPreview: View {
             if books.count == 1 {
                 Library_APIManager.getBooks(query: Library_APIManager.getRandomSearchQuery(), begin: "0") { result in
                     if case .success(let res) = result {
-                        books = res.filter({$0.imageLink != nil})
+                        books = Array(res.filter({$0.imageLink != nil}).prefix(
+                            (UserDefaults(suiteName: "group.ilimcollege.apps")?.bool(forKey: "isLoggedIn") ?? true) ? 7 : 30
+                        ))
                     }
                 }
             }

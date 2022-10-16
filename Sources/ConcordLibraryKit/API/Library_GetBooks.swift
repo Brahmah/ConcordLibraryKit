@@ -62,7 +62,7 @@ extension Library_APIManager {
     }
     
     public static func getRandomSearchQuery() -> String {
-        ["Diary Of A Wimpy Kid", "1984", "Dragon Ball", "Maze Runner", "Ranger's Apprentice", "Shakespeare", "Hadith", "Animal Farm", "Harry Potter"].randomElement()!
+        ["Diary Of A Wimpy Kid", "1984", "Dragon Ball", "Maze Runner", "Ranger's Apprentice", "Shakespeare", "Hadith", "Animal Farm", "Harry Potter", "Minecraft"].randomElement()!
     }
 }
 

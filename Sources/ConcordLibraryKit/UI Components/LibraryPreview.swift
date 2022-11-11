@@ -46,6 +46,26 @@ public struct LibraryPreview: View {
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
+                    NavigationLink {
+                       LoansView()
+                            .navigationBarTitleDisplayMode(.large)
+                    } label: {
+                        ZStack {
+                            Rectangle()
+                                .foregroundColor(.green.opacity(0.8))
+                                .cornerRadius(10)
+                            VStack {
+                                Image(systemName: "books.vertical")
+                                    .font(.title)
+                                    .padding(.bottom)
+                                Text("My Loans")
+                                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            }
+                            .padding(.horizontal, 6)
+                            .foregroundColor(.white)
+                        }
+                        .frame(width: 100, height: 150)
+                    }
                     ForEach(books) { book in
                         if UIDevice.current.userInterfaceIdiom == .pad {
                             BookItemViewIPad(book: book)

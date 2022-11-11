@@ -49,3 +49,24 @@ struct Library_BookInfoRowItem: Codable & Identifiable {
     var value: String
 }
 
+struct Library_BookLoanItem: Codable & Identifiable {
+    var id: String {
+        barcode + title + loanDate + dueDate + returnedDate
+    }
+    var context: loanItemContexts
+    var barcode: String
+    var title: String
+    var loanDate: String
+    var dueDate: String
+    var returnedDate: String
+    
+    enum loanItemContexts: Codable {
+        case current
+        case history
+    }
+}
+
+struct Library_Book_Loans: Codable {
+    let history: [Library_BookLoanItem]
+    let current: [Library_BookLoanItem]
+}

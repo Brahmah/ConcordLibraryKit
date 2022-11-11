@@ -61,6 +61,102 @@ extension Library_APIManager {
         }
     }
     
+    static func getBookLoans(completion: @escaping (Result<Library_Book_Loans, Error>, Bool) -> Void) {
+        // MARK: - Values
+        var current = [Library_BookLoanItem]()
+        var history = [Library_BookLoanItem]()
+        // MARK: REST
+        self.makeCall(
+            path: "core/myprofile#loanHistory",
+            method: .get,
+            body: "",
+            headers: ["Accept": "text/html"]
+        ) { result in
+            if case .success(let res) = result {
+                do {
+                    if res.contains("/loginFromOpac") {
+                        completion(.failure(RuntimeError("needsLogin")), true)
+                    }
+                    // Doc
+                    let doc: Document = try SwiftSoup.parse(res)
+                    // MARK: - History
+                    let BookElmsHistory: Elements = try doc.select("body #myLoanHistory tbody tr")
+                    for bookElm in BookElmsHistory {
+                        var book = Library_BookLoanItem(context: .history, barcode: "", title: "", loanDate: "", dueDate: "", returnedDate: "")
+                        if let barcode = try? bookElm.select("td:nth-child(1)").text(trimAndNormaliseWhitespace: true) {
+                            book.barcode = barcode
+                        }
+                        if let title = try? bookElm.select("td:nth-child(2)").text(trimAndNormaliseWhitespace: true) {
+                            book.title = title
+                        }
+                        if let loanDate = try? bookElm.select("td:nth-child(3)").text(trimAndNormaliseWhitespace: true) {
+                            book.loanDate = loanDate
+                        }
+                        if let dueDate = try? bookElm.select("td:nth-child(4)").text(trimAndNormaliseWhitespace: true) {
+                            book.dueDate = dueDate
+                        }
+                        if let returnedDate = try? bookElm.select("td:nth-child(5)").text(trimAndNormaliseWhitespace: true) {
+                            book.returnedDate = returnedDate
+                        }
+                        if !book.title.isEmpty && !book.barcode.isEmpty {
+                            history.append(book)
+                        }
+                    }
+                    // MARK: - Current
+                    let BookElmsCurrent: Elements = try doc.select("body #myCurrentLoans tbody tr")
+                    for bookElm in BookElmsCurrent {
+                        var book = Library_BookLoanItem(context: .current, barcode: "", title: "", loanDate: "", dueDate: "", returnedDate: "")
+                        if let barcode = try? bookElm.select("td:nth-child(1)").text(trimAndNormaliseWhitespace: true) {
+                            book.barcode = barcode
+                        }
+                        if let title = try? bookElm.select("td:nth-child(2)").text(trimAndNormaliseWhitespace: true) {
+                            book.title = title
+                        }
+                        if let loanDate = try? bookElm.select("td:nth-child(3)").text(trimAndNormaliseWhitespace: true) {
+                            book.loanDate = loanDate
+                        }
+                        if let dueDate = try? bookElm.select("td:nth-child(4)").text(trimAndNormaliseWhitespace: true) {
+                            book.dueDate = dueDate
+                        }
+                        if !book.title.isEmpty && !book.barcode.isEmpty {
+                            current.append(book)
+                        }
+                    }
+                    // MARK: - Completion
+                    completion(.success(Library_Book_Loans(history: history.unique(map: {$0.id}), current: current.unique(map: {$0.id}))), false)
+                } catch {
+                    completion(.failure(RuntimeError("FAILED TO EXTRACT USEFUL DATA FROM Search Results")), false)
+                    return
+                }
+            } else {
+                completion(.failure(RuntimeError("FAILED TO FETCH Search Results")), false)
+            }
+        }
+    }
+    
+    static func getMyLibraryBadgeId(completion: @escaping (String) -> Void) {
+        // MARK: REST
+        self.makeCall(
+            path: "core/myprofile/myaccount",
+            method: .get,
+            body: "",
+            headers: ["Accept": "text/html"]
+        ) { result in
+            if case .success(let res) = result {
+                do {
+                    // Doc
+                    let doc: Document = try SwiftSoup.parse(res)
+                    if let libraryId = try? doc.select("#register-form > div > div:nth-child(2) > div:nth-child(1) > p").text(trimAndNormaliseWhitespace: true) {
+                        completion(libraryId)
+                    }
+                } catch {
+                    return
+                }
+            }
+        }
+    }
+    
+    
     public static func getRandomSearchQuery() -> String {
         ["Diary Of A Wimpy Kid", "1984", "Dragon Ball", "Maze Runner", "Ranger's Apprentice", "Shakespeare", "Hadith", "Animal Farm", "Harry Potter", "Minecraft"].randomElement()!
     }

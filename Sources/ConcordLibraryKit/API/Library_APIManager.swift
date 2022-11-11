@@ -35,10 +35,12 @@ struct RuntimeError: Error {
 public struct Library_APIManager {
     static let mainURL = "https://ilimcollege.concordinfiniti.com"
     static let urlImageService = URLImageService(fileStore: nil, inMemoryStore: URLImageInMemoryStore())
+    static var cookie: String? = nil
     static func makeCall(path: String, method: CONCORD_HTTP_METHODS, body: String?, headers: [String: String], completion: @escaping (Result<String, Error>) -> Void) {
         if let url = URL(string: "\(Library_APIManager.mainURL)/\(path)") {
             var req = URLRequest(url: url)
             req.allHTTPHeaderFields = headers
+            req.setValue(cookie, forHTTPHeaderField: "cookie")
             req.httpMethod = method.rawValue
             req.httpShouldHandleCookies = true
             if let body = body {

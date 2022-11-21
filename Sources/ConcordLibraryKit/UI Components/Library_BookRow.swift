@@ -40,7 +40,7 @@ struct Library_BookCoverPlaceholder: View {
             }
             .padding(.vertical)
         }
-        .frame(width: 100, height: 150)
+        .frame(width: 85, height: 127)
         .cornerRadius(10)
     }
 }

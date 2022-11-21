@@ -64,7 +64,7 @@ public struct LibraryPreview: View {
                             .padding(.horizontal, 6)
                             .foregroundColor(.white)
                         }
-                        .frame(width: 100, height: 150)
+                        .frame(width: 85, height: 127)
                     }
                     ForEach(books) { book in
                         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -94,7 +94,7 @@ public struct LibraryPreview: View {
                             .padding(.horizontal, 6)
                             .foregroundColor(.white)
                         }
-                        .frame(width: 100, height: 150)
+                        .frame(width: 85, height: 127)
                     }
                 }
                 .padding(.horizontal)
@@ -155,7 +155,7 @@ struct Library_BookPreviewItem: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 150)
+                    .frame(width: 85, height: 127)
                     .clipped()
                     .cornerRadius(10)
             }

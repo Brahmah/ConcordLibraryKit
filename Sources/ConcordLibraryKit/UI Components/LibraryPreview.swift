@@ -28,10 +28,10 @@ public struct LibraryPreview: View {
                         .padding(.horizontal)
                 } else {
                     Text("Ilim Library")
-                    .font(.custom("Feijoa-Display", size: 16))
-                    .foregroundColor(headerColor)
-                    .padding(.bottom, -2)
-                    .padding(.horizontal)
+                        .font(.custom("Feijoa-Display", size: 16))
+                        .foregroundColor(headerColor)
+                        .padding(.bottom, -2)
+                        .padding(.horizontal)
                 }
                 NavigationLink {
                     BooksView(searchText: Library_APIManager.getRandomSearchQuery())
@@ -47,7 +47,7 @@ public struct LibraryPreview: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     NavigationLink {
-                       LoansView()
+                        LoansView()
                             .navigationBarTitleDisplayMode(.large)
                     } label: {
                         ZStack {
@@ -64,7 +64,7 @@ public struct LibraryPreview: View {
                             .padding(.horizontal, 6)
                             .foregroundColor(.white)
                         }
-                        .frame(width: 85, height: 127)
+                        .frame(width: 81, height: 117)
                     }
                     ForEach(books) { book in
                         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -94,7 +94,7 @@ public struct LibraryPreview: View {
                             .padding(.horizontal, 6)
                             .foregroundColor(.white)
                         }
-                        .frame(width: 85, height: 127)
+                        .frame(width: 81, height: 117)
                     }
                 }
                 .padding(.horizontal)
@@ -127,16 +127,16 @@ fileprivate struct BookItemViewIPad: View {
     @State var showingPopover: Bool = false
     
     var body: some View {
-            Library_BookPreviewItem(book: book)
-                .onTapGesture {
-                    showingPopover.toggle()
-                }
-                .popover(isPresented: $showingPopover) {
-                    BookDetail(book: book)
-                        .navigationBarTitleDisplayMode(.inline)
-                        .frame(width: 400, height: 600)
-                }
-
+        Library_BookPreviewItem(book: book)
+            .onTapGesture {
+                showingPopover.toggle()
+            }
+            .popover(isPresented: $showingPopover) {
+                BookDetail(book: book)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .frame(width: 400, height: 600)
+            }
+        
     }
 }
 
@@ -155,7 +155,7 @@ struct Library_BookPreviewItem: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 85, height: 127)
+                    .frame(width: 81, height: 117)
                     .clipped()
                     .cornerRadius(10)
             }

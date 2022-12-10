@@ -85,7 +85,7 @@ struct Library_BookRow: View {
             image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 100, height: 150)
+                .frame(width: 81, height: 117)
                 .clipped()
                 .cornerRadius(10)
         }

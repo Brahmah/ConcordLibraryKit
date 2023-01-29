@@ -53,7 +53,7 @@ public struct LibraryPreview: View {
                         ZStack {
                             Rectangle()
                                 .foregroundColor(.green.opacity(0.8))
-                                .cornerRadius(10)
+                                .cornerRadius(16)
                             VStack {
                                 Image(systemName: "books.vertical")
                                     .font(.title)
@@ -84,7 +84,7 @@ public struct LibraryPreview: View {
                         ZStack {
                             Rectangle()
                                 .foregroundColor(.brown.opacity(0.8))
-                                .cornerRadius(10)
+                                .cornerRadius(16)
                             VStack {
                                 Image(systemName: "chevron.right")
                                     .padding(.bottom)
@@ -157,7 +157,7 @@ struct Library_BookPreviewItem: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 81, height: 117)
                     .clipped()
-                    .cornerRadius(10)
+                    .cornerRadius(16)
             }
             .environment(\.urlImageService, Library_APIManager.urlImageService)
             bookStock

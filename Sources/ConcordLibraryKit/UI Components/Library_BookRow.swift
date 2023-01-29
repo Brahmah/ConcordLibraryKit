@@ -30,18 +30,18 @@ struct Library_BookCoverPlaceholder: View {
                 Rectangle()
                     .foregroundColor(.brown.opacity(0.8))
                     .frame(width: 30, height: 5)
-                    .cornerRadius(10)
+                    .cornerRadius(16)
                     .padding(.leading, 5)
                 Rectangle()
                     .foregroundColor(.brown.opacity(0.6))
                     .frame(width: 30, height: 5)
-                    .cornerRadius(10)
+                    .cornerRadius(16)
                     .padding(.leading, 5)
             }
             .padding(.vertical)
         }
         .frame(width: 81, height: 117)
-        .cornerRadius(10)
+        .cornerRadius(16)
     }
 }
 
@@ -87,7 +87,7 @@ struct Library_BookRow: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 81, height: 117)
                 .clipped()
-                .cornerRadius(10)
+                .cornerRadius(16)
         }
         .environment(\.urlImageService, Library_APIManager.urlImageService)
     }

@@ -90,6 +90,11 @@ struct Library_BookRow: View {
                 .cornerRadius(16)
         }
         .environment(\.urlImageService, Library_APIManager.urlImageService)
+        .environment(\.urlImageOptions, URLImageOptions(
+            fetchPolicy: .returnStoreElseLoad(),
+            loadOptions: .loadImmediately,
+            maxPixelSize: CGSize(width: 100, height: 240)
+        ))
     }
 }
 
